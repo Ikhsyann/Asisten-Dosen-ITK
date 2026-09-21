@@ -93,11 +93,12 @@ Pada topologi 1 switch, buat VLAN 10 (Staf) dan VLAN 20 (Tamu) sesuai IP plan Pe
 1. PC dalam VLAN yang sama bisa saling `ping`
 2. PC beda VLAN gagal `ping`
 
-**Kumpulkan:**
-1. File `.pkt`
-2. Output `show vlan brief`
-3. Screenshot kedua hasil ping (berhasil dan gagal)
-4. Laporan singkat memakai [Lampiran B](lampiran/B-template-laporan.md)
+**Format Pengumpulan Tugas:**
+Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P03_<NIM>_<NamaLengkap>.zip` yang berisi:
+1. File simulasi `.pkt` (nama file: `DMJK_A_P03_<NIM>_<NamaLengkap>.pkt`)
+2. Output command `show vlan brief`
+3. Screenshot hasil uji ping (berhasil sesama VLAN dan gagal antar VLAN)
+4. Laporan ringkas `.pdf` (nama file: `DMJK_A_P03_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
 
 ---
 

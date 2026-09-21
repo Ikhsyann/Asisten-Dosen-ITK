@@ -124,11 +124,12 @@ Baris `deny` menolak seluruh alamat dari blok Tamu (`192.168.10.32/28`), baris `
 2. Terapkan ACL yang menolak Tamu mengakses Staf, sementara Staf tetap bisa mengakses Tamu
 3. Verifikasi kedua arah dengan `ping` dan `show access-lists`
 
-**Kumpulkan (final, penutup 5 pertemuan):**
-1. File `.pkt` final
-2. Output `show access-lists`
-3. Screenshot ping (Tamu→Staf gagal, Staf→Tamu berhasil) dan bukti IP dari DHCP (`ipconfig` kedua PC)
-4. Laporan 1 halaman memakai [Lampiran B](lampiran/B-template-laporan.md) — mencakup topologi akhir, tabel IP plan lengkap (Pertemuan 2–5), konfigurasi DHCP dan ACL yang dipasang, dan bukti verifikasi
+**Format Pengumpulan Tugas (Final):**
+Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P05_<NIM>_<NamaLengkap>.zip` yang berisi:
+1. File simulasi `.pkt` final (nama file: `DMJK_A_P05_<NIM>_<NamaLengkap>.pkt`)
+2. Output command `show access-lists`
+3. Screenshot ping (Tamu → Staf gagal, Staf → Tamu berhasil) dan bukti IP dari DHCP (`ipconfig` kedua PC)
+4. Laporan ringkas `.pdf` (nama file: `DMJK_A_P05_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true) — mencakup topologi akhir, tabel alokasi IP plan lengkap (Pertemuan 2–5), konfigurasi DHCP dan ACL yang dipasang, serta analisis bukti verifikasi.
 
 ---
 

@@ -100,11 +100,12 @@ Terapkan router-on-a-stick pada topologi Tugas 3 (VLAN Staf dan Tamu Anda sendir
 
 **Buktikan:** PC Staf dan PC Tamu sekarang bisa saling `ping` lewat router.
 
-**Kumpulkan:**
-1. File `.pkt`
-2. Output `show ip route`
-3. Screenshot ping berhasil antar VLAN
-4. Laporan singkat memakai [Lampiran B](lampiran/B-template-laporan.md)
+**Format Pengumpulan Tugas:**
+Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P04_<NIM>_<NamaLengkap>.zip` yang berisi:
+1. File simulasi `.pkt` (nama file: `DMJK_A_P04_<NIM>_<NamaLengkap>.pkt`)
+2. Output command `show ip route`
+3. Screenshot hasil ping berhasil antar VLAN (Staf ↔ Tamu)
+4. Laporan ringkas `.pdf` (nama file: `DMJK_A_P04_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
 
 ---
 

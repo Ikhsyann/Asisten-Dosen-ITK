@@ -110,11 +110,11 @@ Diberi kebutuhan host baru oleh asisten (misalnya 50 host dan 12 host) dari blok
 2. Terapkan di Packet Tracer: topologi 2 subnet + 1 router (seperti langkah praktikum)
 3. Buktikan konektivitas antar-subnet dengan `ping`
 
-**Kumpulkan:**
-1. Tabel perhitungan subnetting Anda
-2. File `.pkt`
-3. Screenshot hasil `ping` berhasil dan `show ip route`
-4. Laporan singkat memakai [Lampiran B](lampiran/B-template-laporan.md)
+**Format Pengumpulan Tugas:**
+Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P02_<NIM>_<NamaLengkap>.zip` yang berisi:
+1. File simulasi `.pkt` (nama file: `DMJK_A_P02_<NIM>_<NamaLengkap>.pkt`)
+2. Screenshot hasil `ping` berhasil dan output `show ip route`
+3. Laporan ringkas `.pdf` (nama file: `DMJK_A_P02_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true). Termasuk di dalamnya tabel perhitungan subnetting Anda.
 
 ---
 

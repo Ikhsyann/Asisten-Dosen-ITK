@@ -21,8 +21,8 @@ Baca modul sebelum sesi praktikum. Bagian **Materi Singkat** dirancang untuk dib
 
 | File | Dipakai untuk |
 |---|---|
-| [lampiran/A-command-reference.md](lampiran/A-command-reference.md) | Kumpulan perintah CLI yang dipakai sepanjang 5 pertemuan |
-| [lampiran/B-template-laporan.md](lampiran/B-template-laporan.md) | Format laporan yang dikumpulkan setiap tugas mingguan |
+| [lampiran/A-command-reference.md](lampiran/A-command-reference.md) | Kumpulan perintah Cisco IOS CLI yang dipakai sepanjang 5 pertemuan |
+| [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true) | Format laporan resmi (.pdf) yang dikumpulkan setiap tugas praktikum |
 
 ---
 
@@ -32,12 +32,14 @@ Baca modul sebelum sesi praktikum. Bagian **Materi Singkat** dirancang untuk dib
 
 **2. Setiap pertemuan berdiri sendiri, tetapi nyambung.** Pertemuan 2 sampai 5 memakai topologi dan IP plan yang sama, dikembangkan bertahap: subnetting (P2) → dipisah VLAN (P3) → disambung ulang lewat router (P4) → ditambah DHCP dan dibatasi ACL (P5).
 
-**3. Setiap pertemuan ada tugas.** Dikumpulkan berupa file `.pkt` (Packet Tracer) dan, mulai pertemuan 2, tabel/laporan singkat memakai Lampiran B.
+**3. Setiap pertemuan ada tugas.** Dikumpulkan berupa file `.pkt` (Packet Tracer), screenshot verifikasi, dan laporan ringkas `.pdf` mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
 
 **4. Setelah pertemuan 5 ada tugas besar.** Materinya akan diberikan langsung oleh dosen — modul ini adalah fondasi sebelum itu.
 
 ## Yang Dikumpulkan Setiap Pertemuan
 
+Mahasiswa mengumpulkan arsip `.zip` (`DMJK_A_P<NomorPekan>_<NIM>_<NamaLengkap>.zip`) berisi:
 1. File `.pkt` hasil praktikum/tugas
 2. Screenshot bukti verifikasi (ping, `show` command yang diminta)
-3. Mulai pertemuan 2: laporan singkat memakai Lampiran B
+3. Laporan ringkas `.pdf` disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true)
+
