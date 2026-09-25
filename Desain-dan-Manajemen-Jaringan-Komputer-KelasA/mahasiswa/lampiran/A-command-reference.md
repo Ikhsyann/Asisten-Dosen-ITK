@@ -68,7 +68,7 @@ Verifikasi:
 show ip route                           (verifikasi) tabel routing
 ```
 
-## DHCP (Pertemuan 5)
+## DHCP (Pertemuan 4)
 
 ```
 ip dhcp excluded-address <awal> <akhir opsional>
@@ -93,10 +93,18 @@ ipconfig /release
 ipconfig /renew
 ```
 
-## ACL Standard (Pertemuan 5)
+## ACL (Access Control List) (Pertemuan 5)
 
+### Standard ACL (1–99)
 ```
 access-list <1-99> permit|deny <sumber-ip> <wildcard>
+interface <tipe><nomor>
+ ip access-group <nomor> in|out
+```
+
+### Extended ACL (100–199)
+```
+access-list <100-199> permit|deny ip <sumber-ip> <wildcard-sumber> <tujuan-ip> <wildcard-tujuan>
 interface <tipe><nomor>
  ip access-group <nomor> in|out
 ```
@@ -104,6 +112,7 @@ interface <tipe><nomor>
 Verifikasi:
 
 ```
+show access-lists                       (verifikasi) daftar ACL & match counter
 show ip access-lists                    (verifikasi) termasuk penghitung per baris
 ```
 

@@ -10,7 +10,13 @@
 
 Mahasiswa bisa menghitung subnetting sederhana dan menerapkannya untuk memisahkan dua kelompok jaringan yang terhubung lewat router.
 
-## Materi : IP Address & Subnetting (Ringkas)
+---
+
+## Perlengkapan Praktikum
+
+- Cisco Packet Tracer
+
+---
 
 ### 1. Apa itu IP Address
 
@@ -76,14 +82,14 @@ $$\text{Blok subnet (loncatan tiap network)} = 256 - \text{oktet terakhir subnet
 
 ---
 
-## Studi Kasus (dipakai sampai Pertemuan 5)
+## Studi Kasus (Dipakai hingga pertemuan 5)
 
 Kantor kecil dua divisi, dari blok `192.168.10.0/24`:
 
-| Divisi | Kebutuhan host | Prefix | Blok | Gateway | Rentang host |
-|---|---:|---|---|---|---|
-| Staf | 20 | /27 | `192.168.10.0/27` | `192.168.10.1` | `.2` – `.30` |
-| Tamu | 10 | /28 | `192.168.10.32/28` | `192.168.10.33` | `.34` – `.46` |
+| Divisi | Kebutuhan Host | Prefix | Network | Rentang Host Usable | Broadcast | Gateway |
+|---|:---:|:---:|---|---|:---:|---|
+| **Staf** | 20 | `/27` | `192.168.10.0/27` | `.2` – `.30` | `.31` | `192.168.10.1` |
+| **Tamu** | 10 | `/28` | `192.168.10.32/28` | `.34` – `.46` | `.47` | `192.168.10.33` |
 
 ## Langkah Praktikum
 

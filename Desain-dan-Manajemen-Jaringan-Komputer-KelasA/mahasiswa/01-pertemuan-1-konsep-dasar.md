@@ -15,6 +15,16 @@
 
 ---
 
+## Perlengkapan Praktikum
+
+- Kabel LAN/Ethernet (UTP atau STP)
+- Konektor RJ-45
+- Crimping Tool (Tang Crimping)
+- LAN Tester
+- Cisco Packet Tracer
+
+---
+
 ## Materi
 
 ### 1. Apa Itu Jaringan Komputer, Sebenarnya?

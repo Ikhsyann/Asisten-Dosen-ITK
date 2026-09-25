@@ -1,136 +1,115 @@
-# PERTEMUAN 5 — Layanan DHCP & Access Control List (ACL) Dasar
+# PERTEMUAN 5 — Access Control List (ACL) & Network Security
 
 **SI2514011 | Sub-CPMK-3 (C3) | Cisco Packet Tracer**
 
-> Target akhir pertemuan (penutup 5 pertemuan): PC mendapat IP otomatis lewat DHCP, dan Tamu tidak bisa lagi mengakses jaringan Staf berkat ACL.
+> Target akhir pertemuan: Anda memahami konsep pengamanan lalu lintas jaringan menggunakan Access Control List (ACL), perbedaan Standard dan Extended ACL, serta mampu mengimplementasikan Extended ACL di router untuk menyaring dan membatasi akses antar-VLAN.
 
 ---
 
 ## Tujuan
 
-Mahasiswa bisa mengaktifkan DHCP agar PC mendapat IP otomatis, dan membatasi akses Tamu ke Staf memakai ACL standard.
-
-## Materi : DHCP & Access Control List
-
-### 1. DHCP — Distribusi IP Otomatis
-
-**Masalah tanpa DHCP:** Setiap kali ada PC baru yang disambungkan ke jaringan, admin harus datang ke PC tersebut, membuka pengaturan jaringan, dan mengisi IP, subnet mask, serta gateway secara manual. Bayangkan melakukan ini untuk 200 PC di kampus.
-
-**Solusinya: DHCP** (*Dynamic Host Configuration Protocol*). Dengan DHCP, ada satu server (di modul ini, peran server dimainkan oleh router) yang bertugas **membagikan pengaturan jaringan secara otomatis** ke setiap PC yang memintanya.
-
-#### Proses DHCP (Hafal 4 langkah ini: D-O-R-A)
-
-| Langkah | Siapa yang Kirim | Ke Siapa | Isi Pesan |
-|---|---|---|---|
-| **1. Discover** | PC (klien) | Broadcast ke semua | *"Hei, ada DHCP server tidak di sini? Saya butuh IP!"* |
-| **2. Offer** | Router/Server DHCP | PC | *"Ada! Saya tawarkan IP `192.168.10.10` untukmu."* |
-| **3. Request** | PC (klien) | Broadcast | *"Oke, saya mau pakai IP `192.168.10.10` yang ditawarkan."* |
-| **4. Acknowledge** | Router/Server DHCP | PC | *"Dikonfirmasi. IP `192.168.10.10` resmi milikmu untuk sementara."* |
-
-#### DHCP Pool dan Excluded Address
-
-- **Pool:** Rentang alamat IP yang boleh dibagikan ke klien. Misal, pool STAF berisi semua IP di `192.168.10.0/27`.
-- **Excluded Address:** Alamat yang **dikecualikan** dari pool sehingga tidak ikut dibagikan. Alamat gateway wajib dikecualikan — kalau gateway sampai ikut dibagikan ke PC klien, maka gateway akan punya IP yang sama dengan PC lain dan jaringan kacau.
-
-> **Aturan penting:** Perintah `ip dhcp excluded-address` **harus dijalankan sebelum** mendefinisikan pool-nya.
+1. Mahasiswa memahami konsep pengamanan lalu lintas jaringan menggunakan Access Control List (ACL).
+2. Mahasiswa memahami perbedaan antara Standard ACL dan Extended ACL.
+3. Mahasiswa mampu mengimplementasikan ACL di router untuk menyaring (*filter*) dan membatasi akses antar-VLAN atau menuju layanan tertentu.
+4. Mahasiswa mampu melakukan *troubleshooting* dasar pada konfigurasi jaringan yang menerapkan ACL.
 
 ---
 
-### 2. ACL — Penjaga Pintu Lalu Lintas Jaringan
+## Perlengkapan Praktikum
 
-Bayangkan ACL (*Access Control List*) seperti **daftar tamu di pintu masuk gedung**. Satpam memeriksa setiap orang yang datang dari atas ke bawah daftar: jika ada aturan yang cocok, langsung dieksekusi — boleh masuk atau ditolak. Jika sampai bawah tidak ada yang cocok, orang tersebut **otomatis ditolak** (inilah *implicit deny*).
+- Cisco Packet Tracer
 
-#### ACL Standard (nomor 1–99)
+---
 
-ACL standard hanya menyaring berdasarkan satu kriteria: **alamat IP sumber** (dari mana paket datang). Ini paling sederhana tapi paling terbatas — tidak bisa membedakan jenis aplikasi, port, atau tujuan paket.
+## Materi Singkat Terkait
 
-> **ACL Extended (nomor 100–199):** Bisa menyaring berdasarkan IP sumber, IP tujuan, protokol, dan nomor port. Lebih fleksibel, tapi tidak dibahas di modul ini.
+### 1. Apa Itu Access Control List (ACL)?
 
-#### Wildcard Mask — Kebalikan Subnet Mask
+Access Control List (ACL) adalah sekumpulan aturan (*rules*) yang digunakan oleh router untuk mengevaluasi dan mengontrol lalu lintas data (*traffic*) yang melintas. Aturan ACL dapat berupa **permit** (mengizinkan) atau **deny** (menolak) paket berdasarkan kriteria tertentu.
 
-Saat menulis aturan ACL, perlu menyebut rentang IP yang diatur. Cara menyebut rentang ini memakai **wildcard mask**, bukan subnet mask biasa.
+### 2. Jenis-Jenis ACL
 
-Wildcard mask adalah **kebalikan bit** dari subnet mask:
-- Subnet mask `/28` = `255.255.255.240`
-- Wildcard mask-nya = `0.0.0.15` (bit yang `1` di subnet mask menjadi `0`, dan sebaliknya)
-
-> **Cara mudah menghitungnya:** `255.255.255.255 − subnet mask = wildcard mask`  
-> Contoh: `255.255.255.255 − 255.255.255.240 = 0.0.0.15`
-
-#### Arah ACL: `in` vs `out`
-
-ACL dipasang pada sebuah interface router dengan salah satu arah:
-
-| Arah | Menyaring lalu lintas yang... | Analogi |
-|---|---|---|
-| **`in`** | ...masuk **ke** router melalui interface itu | Satpam di pintu masuk gedung |
-| **`out`** | ...keluar **dari** router melalui interface itu | Satpam di pintu keluar gedung |
-
-Di modul ini, ACL dipasang **`out`** pada sub-interface Staf (`Gi0/0.10`). Artinya: setiap paket yang hendak **dikirimkan router ke jaringan Staf** akan diperiksa terlebih dahulu — apakah boleh masuk ke Staf atau tidak.
-
-#### Implicit Deny — Aturan Tersembunyi di Akhir Setiap ACL
-
-Setiap ACL Cisco **selalu memiliki satu baris aturan tak terlihat** di paling bawah:  
-`deny any` — tolak semua yang tidak cocok dengan aturan di atasnya.
-
-Inilah mengapa di kasus ini perlu menambahkan `permit any` secara eksplisit di baris terakhir — supaya lalu lintas dari selain Tamu (termasuk Staf sendiri yang balik ke jaringan mereka) tidak ikut diblokir oleh *implicit deny*.
-
-#### Kebijakan di Modul Ini
-
-| Dari | Ke | Diizinkan? | Alasannya |
+| Jenis ACL | Rentang Nomor / Tipe | Kriteria Penyaringan | Penempatan Terbaik |
 |---|---|---|---|
-| Tamu (`192.168.10.32/28`) | Staf (`192.168.10.0/27`) | ❌ Ditolak | Aturan `deny 192.168.10.32 0.0.0.15` pada ACL |
-| Staf atau lainnya | Staf | ✅ Diizinkan | Aturan `permit any` di bawah deny |
-| Staf (`192.168.10.0/27`) | Tamu (`192.168.10.32/28`) | ✅ Diizinkan | Tidak ada ACL yang dipasang di sub-interface Tamu |
+| **Standard ACL** | 1 – 99 & 1300 – 1999 | Hanya memeriksa Alamat IP Asal (*Source IP*). | Ditempatkan sesedikit/sedekat mungkin dengan Tujuan (*Destination*). |
+| **Extended ACL** | 100 – 199 & 2000 – 2699 | Memeriksa *Source IP*, *Destination IP*, Protokol (TCP/UDP/ICMP), dan *Port Number*. | Ditempatkan sedekat mungkin dengan Sumber (*Source*). |
+
+#### Wildcard Mask — Penentu Rentang IP
+Saat mendefinisikan aturan ACL, rentang alamat IP ditentukan menggunakan **wildcard mask** (kebalikan bit dari subnet mask):
+- Subnet mask `/27` (`255.255.255.224`) $\rightarrow$ Wildcard mask: `0.0.0.31`
+- Subnet mask `/28` (`255.255.255.240`) $\rightarrow$ Wildcard mask: `0.0.0.15`
+
+### 3. Aturan Emas ACL (Implicit Deny All)
+
+Setiap baris daftar ACL dievaluasi secara berurutan dari atas ke bawah (*top-down*). Jika ada paket yang cocok (*match*) dengan suatu baris aturan, router akan mengeksekusi tindakan (*permit/deny*) dan menghentikan pencocokan baris berikutnya.
+
+> **PENTING (Implicit Deny):**  
+> Di bagian paling akhir dari setiap ACL, terdapat aturan tersembunyi (*implicit rule*) yaitu **`deny ip any any`** (menolak seluruh paket yang tidak cocok dengan aturan di atasnya).  
+> Oleh karena itu, jika membuat aturan *deny*, pastikan untuk menambahkan aturan **`permit ip any any`** di akhirnya agar *traffic* lain tidak ikut terblokir!
+
+---
 
 ## Langkah Praktikum
 
-### 1. Aktifkan DHCP
+**Studi Kasus Keamanan:**  
+Divisi Tamu (VLAN 20) tidak boleh mengakses IP PC Staf (VLAN 10), tetapi Tamu tetap boleh mengakses Internet / Gateway mereka sendiri (`192.168.10.33`).
 
-```
-ip dhcp excluded-address 192.168.10.1
-ip dhcp pool STAF
- network 192.168.10.0 255.255.255.224
- default-router 192.168.10.1
+### 1. Konfigurasi Extended ACL di Router
 
-ip dhcp excluded-address 192.168.10.33
-ip dhcp pool TAMU
- network 192.168.10.32 255.255.255.240
- default-router 192.168.10.33
-```
+Buat aturan Extended ACL dengan nomor **100** di Router:
 
-Ubah IP configuration PC dari **Static** menjadi **DHCP**, lalu di Command Prompt jalankan `ipconfig /renew`. Buktikan setiap PC mendapat IP sesuai subnet-nya secara otomatis.
+```ios
+Router> enable
+Router# configure terminal
 
-### 2. Pasang ACL
+! Blokir ICMP/IP dari network Tamu (192.168.10.32/28) ke network Staf (192.168.10.0/27)
+Router(config)# access-list 100 deny ip 192.168.10.32 0.0.0.15 192.168.10.0 0.0.0.31
 
-```
-access-list 10 deny 192.168.10.32 0.0.0.15
-access-list 10 permit any
-interface gigabitEthernet0/0.10
- ip access-group 10 out
+! Izinkan sisa traffic lainnya dari Tamu
+Router(config)# access-list 100 permit ip any any
 ```
 
-Baris `deny` menolak seluruh alamat dari blok Tamu (`192.168.10.32/28`), baris `permit any` mengizinkan sisanya. ACL dipasang **keluar (`out`)** pada sub-interface Staf, artinya menyaring lalu lintas yang **akan masuk** ke jaringan Staf.
+### 2. Terapkan ACL pada Sub-Interface Router
 
-### 3. Verifikasi
+Pasang ACL 100 pada sub-interface VLAN 20 (`Gi0/0.20`) untuk arah paket masuk (*inbound / in*):
 
-- PC Tamu → PC Staf: `ping` harus **gagal**
-- PC Staf → PC Tamu: `ping` harus **tetap berhasil**
-- Jalankan `show access-lists`, periksa counter (match count) pada baris `deny` bertambah setelah PC Tamu mencoba ping ke Staf
+```ios
+Router(config)# interface gigabitEthernet 0/0.20
+Router(config-subif)# ip access-group 100 in
+Router(config-subif)# exit
+```
 
-## Tugas 5 (Penutup 5 Pertemuan)
+### 3. Pengujian ACL & Troubleshooting
 
-1. Aktifkan DHCP untuk kedua VLAN (Staf dan Tamu), buktikan PC mendapat IP otomatis sesuai subnet-nya
-2. Terapkan ACL yang menolak Tamu mengakses Staf, sementara Staf tetap bisa mengakses Tamu
-3. Verifikasi kedua arah dengan `ping` dan `show access-lists`
-
-**Format Pengumpulan Tugas (Final):**
-Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P05_<NIM>_<NamaLengkap>.zip` yang berisi:
-1. File simulasi `.pkt` final (nama file: `DMJK_A_P05_<NIM>_<NamaLengkap>.pkt`)
-2. Output command `show access-lists`
-3. Screenshot ping (Tamu → Staf gagal, Staf → Tamu berhasil) dan bukti IP dari DHCP (`ipconfig` kedua PC)
-4. Laporan ringkas `.pdf` (nama file: `DMJK_A_P05_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true) — mencakup topologi akhir, tabel alokasi IP plan lengkap (Pertemuan 2–5), konfigurasi DHCP dan ACL yang dipasang, serta analisis bukti verifikasi.
+1. **Uji dari PC Tamu ke PC Staf:**  
+   Lakukan `ping` dari PC Tamu ke salah satu PC Staf. Hasil harus **Destination Host Unreachable** (ditolak oleh ACL router).
+2. **Uji dari PC Tamu ke Gateway:**  
+   Lakukan `ping` dari PC Tamu ke Gateway mereka (`192.168.10.33`). Hasil harus **Reply / Sukses**.
+3. **Uji dari PC Staf ke PC Tamu:**  
+   Lakukan `ping` dari PC Staf ke PC Tamu. Hasil tetap **Reply** (karena ACL hanya dipasang pada *traffic* masuk di sub-interface VLAN 20).
+4. **Verifikasi Pencocokan Paket:**  
+   Jalankan perintah berikut di CLI Router untuk melihat statistik paket yang terkena aturan ACL:
+   ```ios
+   Router# show access-lists
+   ```
+   Perhatikan counter (*hit count*) pada baris `deny` yang bertambah ketika PC Tamu mencoba mengirimkan paket ke Staf.
 
 ---
 
-**Selanjutnya:** Tugas besar — materi dan ketentuan akan diberikan langsung oleh dosen pengampu.
+## Tugas 5
+
+Terapkan Extended ACL pada jaringan yang telah dibangun di Pertemuan 4.
+
+**Ketentuan:**
+1. Divisi Tamu dibatasi sehingga tidak dapat melakukan ping ke seluruh PC Staf, tetapi tetap dapat melakukan ping ke Gateway mereka sendiri (`192.168.10.33`).
+2. Tampilkan output `show access-lists` pada laporan praktikum untuk membuktikan adanya *hit count* paket yang diblokir.
+
+**Format Pengumpulan Tugas:**
+Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P05_<NIM>_<NamaLengkap>.zip` yang berisi:
+1. File simulasi `.pkt` (nama file: `DMJK_A_P05_<NIM>_<NamaLengkap>.pkt`)
+2. Screenshot hasil uji ping sebelum dan sesudah dipasang ACL serta output `show access-lists`.
+3. Laporan ringkas `.pdf` (nama file: `DMJK_A_P05_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
+
+---
+
+**Selanjutnya:** Tugas Besar — materi dan ketentuan akan diberikan langsung oleh dosen pengampu.

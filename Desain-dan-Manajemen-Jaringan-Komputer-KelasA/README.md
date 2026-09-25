@@ -33,8 +33,8 @@ Mengacu pada CPMK-1 resmi mata kuliah (lihat [kurikulum.itk.ac.id/guest/silabus/
 | **1** | Konsep Dasar Jaringan & Pengenalan Packet Tracer | 1 | [01-pertemuan-1-konsep-dasar.md](mahasiswa/01-pertemuan-1-konsep-dasar.md) | File `.pkt` (4 PC + 1 Switch) + Screenshot Ping |
 | **2** | Pengalamatan IPv4 & Subnetting Dasar | 2 | [02-pertemuan-2-addressing-subnetting.md](mahasiswa/02-pertemuan-2-addressing-subnetting.md) | File `.pkt` (2 Subnet + Router) + Laporan PDF |
 | **3** | VLAN & Switching | 3 | [03-pertemuan-3-vlan-switching.md](mahasiswa/03-pertemuan-3-vlan-switching.md) | File `.pkt` (1 Switch 2 VLAN) + CLI `show vlan brief` |
-| **4** | Routing Dasar & Inter-VLAN (Router-on-a-Stick) | 3 | [04-pertemuan-4-routing-dasar.md](mahasiswa/04-pertemuan-4-routing-dasar.md) | File `.pkt` + CLI `show ip route` + Laporan PDF |
-| **5** | Layanan DHCP & Access Control List (ACL) Dasar | 3 | [05-pertemuan-5-dhcp-acl.md](mahasiswa/05-pertemuan-5-dhcp-acl.md) | File `.pkt` final + CLI `show access-lists` + Laporan PDF |
+| **4** | Inter-VLAN Routing & DHCP Server | 3 | [04-pertemuan-4-routing-dasar.md](mahasiswa/04-pertemuan-4-routing-dasar.md) | File `.pkt` + Screenshot IP DHCP & Ping + Laporan PDF |
+| **5** | Access Control List (ACL) & Network Security | 3 | [05-pertemuan-5-dhcp-acl.md](mahasiswa/05-pertemuan-5-dhcp-acl.md) | File `.pkt` final + CLI `show access-lists` + Laporan PDF |
 
 ---
 
@@ -42,10 +42,10 @@ Mengacu pada CPMK-1 resmi mata kuliah (lihat [kurikulum.itk.ac.id/guest/silabus/
 
 Modul pertemuan 2–5 memakai satu studi kasus ringan yang berkesinambungan: kantor kecil dengan dua divisi, **Staf** (kebutuhan 20 host) dan **Tamu** (kebutuhan 10 host), dialokasikan dari blok jaringan `192.168.10.0/24`. Parameter ini **sama untuk seluruh mahasiswa Kelas A** (tidak diturunkan dari NIM atau nomor urut).
 
-| Divisi | Kebutuhan Host | Prefix | Alokasi Blok Subnet | Gateway | Rentang Host Usable |
-|---|:---:|:---:|---|---|---|
-| **Staf** | 20 | `/27` | `192.168.10.0/27` | `192.168.10.1` | `.2` – `.30` |
-| **Tamu** | 10 | `/28` | `192.168.10.32/28` | `192.168.10.33` | `.34` – `.46` |
+| Divisi | Kebutuhan Host | Prefix | Alokasi Blok Subnet | Broadcast | Gateway | Rentang Host Usable |
+|---|:---:|:---:|---|:---:|---|---|
+| **Staf** | 20 | `/27` | `192.168.10.0/27` | `.31` | `192.168.10.1` | `.2` – `.30` |
+| **Tamu** | 10 | `/28` | `192.168.10.32/28` | `.47` | `192.168.10.33` | `.34` – `.46` |
 
 ---
 

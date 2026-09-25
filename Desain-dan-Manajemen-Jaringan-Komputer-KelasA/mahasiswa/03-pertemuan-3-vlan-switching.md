@@ -10,7 +10,13 @@
 
 Mahasiswa memahami VLAN sebagai pemisah logis dan bisa menggantikan pemisahan fisik (2 switch) pada Pertemuan 2 menjadi 1 switch dengan 2 VLAN.
 
-## Materi : VLAN & Switching
+---
+
+## Perlengkapan Praktikum
+
+- Cisco Packet Tracer
+
+---
 
 ### 1. Cara Kerja Switch (Fondasi Sebelum VLAN)
 
@@ -63,42 +69,54 @@ VLAN yang berbeda tidak bisa saling berkomunikasi secara langsung — **tapi ini
 
 ## Langkah Praktikum
 
-1. Ganti topologi Pertemuan 2: sekarang pakai **1 switch saja** untuk kedua divisi (tidak perlu 2 switch + router lagi untuk langkah ini)
-2. Buat VLAN di switch:
+1. **Buat VLAN di Switch**  
+   Buka CLI Switch, buat VLAN 10 (Staf) dan VLAN 20 (Tamu):
+   ```ios
+   Switch> enable
+   Switch# configure terminal
+   Switch(config)# vlan 10
+   Switch(config-vlan)# name Staf
+   Switch(config-vlan)# exit
+   Switch(config)# vlan 20
+   Switch(config-vlan)# name Tamu
+   Switch(config-vlan)# exit
    ```
-   vlan 10
-    name STAF
-   vlan 20
-    name TAMU
+
+2. **Alokasikan Port Access ke VLAN**  
+   Daftarkan port FastEthernet0/1 dan Fa0/2 ke VLAN 10, serta Fa0/3 dan Fa0/4 ke VLAN 20:
+   ```ios
+   Switch(config)# interface range fa0/1-2
+   Switch(config-if-range)# switchport mode access
+   Switch(config-if-range)# switchport access vlan 10
+   Switch(config-if-range)# exit
+   Switch(config)# interface range fa0/3-4
+   Switch(config-if-range)# switchport mode access
+   Switch(config-if-range)# switchport access vlan 20
+   Switch(config-if-range)# exit
    ```
-3. Assign port ke VLAN masing-masing:
-   ```
-   interface range fastEthernet0/1-2
-    switchport mode access
-    switchport access vlan 10
-   interface range fastEthernet0/3-4
-    switchport mode access
-    switchport access vlan 20
-   ```
-4. Sambungkan 2 PC ke port VLAN 10 (Staf, IP dari blok `192.168.10.0/27`) dan 2 PC ke port VLAN 20 (Tamu, IP dari blok `192.168.10.32/28`) — tanpa gateway dulu, tidak perlu diisi karena belum ada router
-5. Uji `ping` antar PC dalam VLAN yang sama → **harus berhasil**
-6. Uji `ping` antar PC beda VLAN → **harus gagal** (buktikan VLAN benar-benar mengisolasi)
-7. Jalankan `show vlan brief`, periksa port mana masuk VLAN mana
+
+3. **Verifikasi VLAN**  
+   Jalankan perintah `show vlan brief` di Switch untuk memastikan port sudah terasosiasi dengan VLAN yang benar.
+
+4. **Uji Konektivitas Antar-VLAN (Pengujian Isolasi)**  
+   - Lakukan `ping` dari PC Staf 1 ke PC Staf 2 (VLAN 10 yang sama). Hasil harus **Reply / Sukses**.
+   - Lakukan `ping` dari PC Staf 1 ke PC Tamu 1 (VLAN 20 yang beda). Hasil harus **Request Timed Out / Gagal**. Hal ini membuktikan bahwa VLAN berhasil mengisolasi lalu lintas data secara logis pada satu switch.
+
+---
 
 ## Tugas 3
 
-Pada topologi 1 switch, buat VLAN 10 (Staf) dan VLAN 20 (Tamu) sesuai IP plan Pertemuan 2, tempatkan 2 PC per VLAN.
+Bangun topologi 1 Switch + 4 PC yang terbagi dalam 2 VLAN (VLAN 10 Staf & VLAN 20 Tamu).
 
-**Buktikan:**
-1. PC dalam VLAN yang sama bisa saling `ping`
-2. PC beda VLAN gagal `ping`
+**Ketentuan:**
+1. Konfigurasikan port access switch sesuai pembagian divisi.
+2. Buktikan isolasi jaringan: PC sesama VLAN dapat saling ping, sedangkan PC beda VLAN tidak dapat terhubung.
 
 **Format Pengumpulan Tugas:**
 Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P03_<NIM>_<NamaLengkap>.zip` yang berisi:
 1. File simulasi `.pkt` (nama file: `DMJK_A_P03_<NIM>_<NamaLengkap>.pkt`)
-2. Output command `show vlan brief`
-3. Screenshot hasil uji ping (berhasil sesama VLAN dan gagal antar VLAN)
-4. Laporan ringkas `.pdf` (nama file: `DMJK_A_P03_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
+2. Screenshot hasil uji ping sukses (sesama VLAN) dan gagal (antar VLAN) serta output `show vlan brief`.
+3. Laporan ringkas `.pdf` (nama file: `DMJK_A_P03_<NIM>_<NamaLengkap>.pdf`) disusun mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
 
 ---
 

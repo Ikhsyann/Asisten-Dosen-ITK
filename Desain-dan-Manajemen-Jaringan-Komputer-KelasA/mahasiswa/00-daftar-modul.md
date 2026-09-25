@@ -12,8 +12,8 @@
 | [01-pertemuan-1-konsep-dasar.md](01-pertemuan-1-konsep-dasar.md) | 1 | Konsep dasar jaringan & pengenalan Packet Tracer | 1 |
 | [02-pertemuan-2-addressing-subnetting.md](02-pertemuan-2-addressing-subnetting.md) | 2 | Pengalamatan IP & subnetting dasar | 2 |
 | [03-pertemuan-3-vlan-switching.md](03-pertemuan-3-vlan-switching.md) | 3 | VLAN & switching | 3 |
-| [04-pertemuan-4-routing-dasar.md](04-pertemuan-4-routing-dasar.md) | 4 | Routing dasar & inter-VLAN routing | 3 |
-| [05-pertemuan-5-dhcp-acl.md](05-pertemuan-5-dhcp-acl.md) | 5 | Layanan DHCP & Access Control List dasar | 3 |
+| [04-pertemuan-4-routing-dasar.md](04-pertemuan-4-routing-dasar.md) | 4 | Inter-VLAN Routing & DHCP Server | 3 |
+| [05-pertemuan-5-dhcp-acl.md](05-pertemuan-5-dhcp-acl.md) | 5 | Access Control List (ACL) & Network Security | 3 |
 
 Baca modul sebelum sesi praktikum. Bagian **Materi Singkat** dirancang untuk dibaca lebih dulu; bagian **Langkah Praktikum** dan **Tugas** dikerjakan di laboratorium.
 
@@ -30,7 +30,7 @@ Baca modul sebelum sesi praktikum. Bagian **Materi Singkat** dirancang untuk dib
 
 **1. Parameter jaringan sama untuk semua mahasiswa.** Tidak ada nomor urut atau NIM yang mengubah alamat IP/VLAN Anda. Studi kasus (kantor kecil, divisi Staf dan Tamu, blok `192.168.10.0/24`) sama untuk seluruh kelas mulai pertemuan 2.
 
-**2. Setiap pertemuan berdiri sendiri, tetapi nyambung.** Pertemuan 2 sampai 5 memakai topologi dan IP plan yang sama, dikembangkan bertahap: subnetting (P2) → dipisah VLAN (P3) → disambung ulang lewat router (P4) → ditambah DHCP dan dibatasi ACL (P5).
+**2. Setiap pertemuan berdiri sendiri, tetapi nyambung.** Pertemuan 2 sampai 5 memakai topologi dan IP plan yang sama, dikembangkan bertahap: subnetting (P2) → dipisah VLAN (P3) → disambung ulang lewat router & diberi DHCP (P4) → dibatasi keamanan dengan Extended ACL (P5).
 
 **3. Setiap pertemuan ada tugas.** Dikumpulkan berupa file `.pkt` (Packet Tracer), screenshot verifikasi, dan laporan ringkas `.pdf` mengacu pada [Template Laporan Praktikum](https://docs.google.com/document/d/1ChvPwSa-9h_i8z8RE195jK_iNLz7sTdK/edit?usp=drivesdk&ouid=101845457565241443935&rtpof=true&sd=true).
 
