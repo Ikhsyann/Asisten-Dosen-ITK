@@ -106,11 +106,12 @@ VLAN yang berbeda tidak bisa saling berkomunikasi secara langsung — **tapi ini
 
 ## Tugas 3
 
-Bangun topologi 1 Switch + 4 PC yang terbagi dalam 2 VLAN (VLAN 10 Staf & VLAN 20 Tamu).
+Bangun topologi 1 Switch + 6 PC yang terbagi dalam 2 VLAN (VLAN 10 Staf & VLAN 20 Tamu).
 
 **Ketentuan:**
 1. Konfigurasikan port access switch sesuai pembagian divisi.
 2. Buktikan isolasi jaringan: PC sesama VLAN dapat saling ping, sedangkan PC beda VLAN tidak dapat terhubung.
+3. Bebas pembagian vlannya ke pc berapa aja, yang penting total 6 pc.
 
 **Format Pengumpulan Tugas:**
 Mahasiswa mengumpulkan arsip file `.zip` dengan format nama `DMJK_A_P03_<NIM>_<NamaLengkap>.zip` yang berisi:
