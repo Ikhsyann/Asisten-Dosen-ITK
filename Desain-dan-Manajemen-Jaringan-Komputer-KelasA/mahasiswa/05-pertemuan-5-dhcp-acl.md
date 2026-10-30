@@ -36,8 +36,9 @@ Access Control List (ACL) adalah sekumpulan aturan (*rules*) yang digunakan oleh
 
 #### Wildcard Mask — Penentu Rentang IP
 Saat mendefinisikan aturan ACL, rentang alamat IP ditentukan menggunakan **wildcard mask** (kebalikan bit dari subnet mask):
+jadi dari 255.255.255.255 dikurangi sama subnet mask dibawah hasilnya jadi Wildcard mask
 - Subnet mask `/27` (`255.255.255.224`) $\rightarrow$ Wildcard mask: `0.0.0.31`
-- Subnet mask `/28` (`255.255.255.240`) $\rightarrow$ Wildcard mask: `0.0.0.15`
+- Subnet mask `/28` (`255.255.255.240`) $\rightarrow$ Wildcard mask: `0.0.0.15` 
 
 ### 3. Aturan Emas ACL (Implicit Deny All)
 
